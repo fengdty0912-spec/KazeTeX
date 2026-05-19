@@ -1,0 +1,20 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{kazetex-env}[2026/05/18 KazeTeX problem environments]
+
+% ---- safety fallback for pad conditional (defined in kazetex.cls) ----
+\@ifundefined{if@kazetex@pad}{\newif\if@kazetex@pad\@kazetex@padfalse}{}
+
+% ---- problem environment (per-section numbering) ----
+\newcounter{problem}[section]
+\renewcommand{\theproblem}{\thesection.\arabic{problem}}
+
+\newenvironment{problem}{%
+  \refstepcounter{problem}%
+  \par\medskip\noindent
+  \textbf{题 \theproblem}\quad
+}{%
+  \par\medskip
+  \if@kazetex@pad
+    \clearpage
+  \fi
+}
